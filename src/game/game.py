@@ -1,4 +1,4 @@
-from random import random
+import random
 from typing import List
 
 from src.game.constants import GamePhase
@@ -14,13 +14,13 @@ class Game:
 
         random.shuffle(players)
         self._players: List[PlayerAi] = players
-        self._game_state: GameState = GameState([Player(player.name) for player in self._players])
+        self._game_state: GameState = GameState([player.name for player in self._players])
 
     def start(self):
         # Setup
         while self._game_state.phase != GamePhase.PRE_ROLL:
             player: int = self._game_state.current_player_idx
-            self._players[player].initial_placement(self._game_state)
+            self._players[player].initial_build(self._game_state)
             if player == self._game_state.current_player_idx:
                 raise RuntimeError(f"Player {self._players[player].name} did not take their initial turn")
 
@@ -51,6 +51,6 @@ class Game:
 
     @property
     def _current_player(self) -> PlayerAi:
-        return self._players[self._game_state.current_player_idx];
+        return self._players[self._game_state.current_player_idx]
 
 
