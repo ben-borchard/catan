@@ -112,7 +112,7 @@ class GameState:
 
     def initial_build(self, settlement_corner: int, road_edge: int):
         # check setup
-        if self.is_setup_complete():
+        if self.is_setup_complete:
             raise RuntimeError('setup done, no more initial placements')
 
         # check connection

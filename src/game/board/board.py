@@ -26,7 +26,8 @@ class Board:
     def __init__(self):
         self._robber_tile: int = None
         self._port_resources: List[ResourceType] = None
-        self._marker_to_tiles: List[List[int]] = [[] for _ in range(TOTAL_MARKERS)]
+        # one index the markers
+        self._marker_to_tiles: List[List[Tile]] = [[] for _ in range(TOTAL_MARKERS + 1)]
         self._tiles: List[Tile] = [None] * TOTAL_TILES
         self._generate_board()
         self._buildings: List[Building] = [None] * TOTAL_CORNERS
@@ -63,8 +64,9 @@ class Board:
         for tile_idx in range(TOTAL_TILES):
             resource = resources.pop()
             marker = None if resource is None else markers.pop()
-            tile = Tile(resource, marker)
-            self._marker_to_tiles[marker].append(tile)
+            tile = Tile(resource, marker, tile_idx)
+            if marker is not None:
+                self._marker_to_tiles[marker].append(tile)
             self._tiles[tile_idx] = tile
 
             # robber starts in desert
@@ -77,7 +79,7 @@ class Board:
     def buildings(self, tile: int) -> List[Building]:
         buildings: List[Building] = []
         for corner in TILE_TO_CORNERS[tile]:
-            building = self._buildings[corner];
+            building = self._buildings[corner]
             if building is not None:
                 buildings.append(building)
         return buildings
@@ -86,15 +88,15 @@ class Board:
         for tile in self.tiles(dice_total):
             if tile.has_robber:
                 return
-            for building in self._board.buildings(tile.index):
+            for building in self.buildings(tile.index):
                 building.collect(tile.resource)
 
     def assert_has_space(self, building: Building, corner: int):
         existing: Building = self._buildings[corner]
-        if building.is_city():
+        if building.is_city:
             if existing is None:
                 raise RuntimeError(f"no settlement at corner index {corner}")
-            elif existing.is_city():
+            elif existing.is_city:
                 raise RuntimeError(f"city already at corner index {corner}")
             elif existing.player != building.player:
                 raise RuntimeError(f"settlement belongs to the wrong player: {existing.player.name}")
@@ -119,7 +121,7 @@ class Board:
         self._buildings[corner] = building
 
         # check for breaking
-        if not building.is_city():
+        if not building.is_city:
             # get the roads by player
             player_roads = {}
             for edge in CORNERS_TO_EDGES[corner]:

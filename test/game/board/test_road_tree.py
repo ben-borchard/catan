@@ -1,4 +1,4 @@
-from game.board.road_tree import RoadTree
+from src.game.board.road_tree import RoadTree
 
 
 def test_basic():

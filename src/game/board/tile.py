@@ -11,11 +11,15 @@ class Tile:
         self._index = index
 
     def __repr__(self):
-        return f"Tile({self.resource_type}, {self.marker}, Robber={self.has_robber})"
+        return f"Tile({self._resource_type}, {self._marker}, Robber={self._has_robber})"
 
     @property
     def index(self) -> int:
         return self._index
+
+    @property
+    def marker(self) -> int:
+        return self._marker
 
     @property
     def has_robber(self) -> bool:

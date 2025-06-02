@@ -64,6 +64,6 @@ class GameStateTest:
         return self
 
     def assert_setup_complete(self):
-        assert self.game_state.is_setup_complete()
+        assert self.game_state.is_setup_complete
         return self
 

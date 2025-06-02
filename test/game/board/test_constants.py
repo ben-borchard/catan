@@ -1,6 +1,6 @@
-from game.board.constants import CORNERS_TO_EDGES, connected
-from game.board.constants import EDGES_TO_CORNERS
-from game.board.constants import CORNER_NEIGHBORS
+from src.game.board.constants import CORNERS_TO_EDGES, connected
+from src.game.board.constants import EDGES_TO_CORNERS
+from src.game.board.constants import CORNER_NEIGHBORS
 
 
 def test_edges_to_corners():

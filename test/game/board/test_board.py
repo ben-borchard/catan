@@ -15,10 +15,10 @@ def test_setup():
     resources = {}
     markers = {}
     for tile in board._tiles:
-        if tile.resource_type not in resources:
-            resources[tile.resource_type] = 1
+        if tile.resource not in resources:
+            resources[tile.resource] = 1
         else:
-            resources[tile.resource_type] += 1
+            resources[tile.resource] += 1
         if tile.marker not in markers:
             markers[tile.marker] = 1
         else:
